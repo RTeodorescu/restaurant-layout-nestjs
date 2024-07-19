@@ -71,3 +71,12 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+https://dev.to/francescoxx/typescript-crud-rest-api-using-nestjs-typeorm-postgres-docker-and-docker-compose-33al
+
+npm install -g @nestjs/cli
+nest new restaurant-layout-nestjs
+cd restaurant-layout-nestjs
+npm i pg typeorm @nestjs/typeorm @nestjs/config
+npm start
