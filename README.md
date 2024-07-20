@@ -159,3 +159,27 @@ I used restman chrome extension
 there are twp different controllers
 Shapes->/shapes this one works with id (primary keys) - also does create
 ShapesLayout->/shapeslayout this one works with layuoutNames and uuid
+
+Used postgresql@15 on localhost
+
+Connect as postgres user to create a new database called restaurant_layout_db
+Create a new user called 'appuser' with the encrypted password 'apppass'
+Grant all on restaurant_layout_db public schema to appuser
+
+TypeORM is going to create the table automatically when you use the app
+
+Copy of sequence of commands to set up db
+CATALINs-MacBook-Pro:~ teos$ psql postgres
+psql (15.7 (Homebrew))
+Type "help" for help.
+
+postgres=# create database restaurant_layout_db;
+CREATE DATABASE
+postgres=# create user appuser with encrypted password 'apppass';
+CREATE ROLE
+postgres=# grant all privileges on database restaurant_layout_db to appuser;
+GRANT
+postgres=# \c restaurant_layout_db;
+You are now connected to database "restaurant_layout_db" as user "teos".
+restaurant_layout_db=# grant all on schema public to appuser;
+GRANT
