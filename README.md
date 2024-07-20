@@ -80,3 +80,82 @@ nest new restaurant-layout-nestjs
 cd restaurant-layout-nestjs
 npm i pg typeorm @nestjs/typeorm @nestjs/config
 npm start
+
+npm install @types/uuid
+
+Example json:
+// 11 at the end of the uuid
+{
+  "layoutName":"firstLayout",
+  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3811"
+  "options":{
+    "fill":"white",
+    "label":"Table",
+    "section":"S",
+    "occupied":true,
+    "top":10,
+    "left":10,
+  }
+}
+
+// 12 at the end of the uuid
+{
+  "layoutName":"firstLayout",
+  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3812"
+  "options":{
+    "fill":"white",
+    "label":"Table",
+    "section":"S",
+    "occupied":true,
+    "top":10,
+    "left":10,
+  }
+}
+
+// 21 at the end of the uuid
+{
+  "layoutName":"secondLayout",
+  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3821"
+  "options":{
+    "fill":"white",
+    "label":"Table",
+    "section":"S",
+    "occupied":true,
+    "top":10,
+    "left":10,
+  }
+}
+
+// 22 at the end of the uuid
+{
+  "layoutName":"secondLayout",
+  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3822"
+  "options":{
+    "fill":"white",
+    "label":"Table",
+    "section":"S",
+    "occupied":true,
+    "top":10,
+    "left":10,
+  }
+}
+
+
+To create
+POST localhost:3000/shapes
+Headers: Application-Type: application/json
+Body: json above
+
+To get all shapes associated to a layout
+GET localhost:3000/shapeslayout/:layouName
+Example: localhost:3000/shapeslayout/firstLayout
+
+To get a shape associated to a layout
+GET localhost:3000/shapeslayout/:layouName/:uuid
+Example: localhost:3000/shapeslayout/firstLayout/90cd8c36-c958-4ed5-b2e4-1d62438e3811
+
+I used restman chrome extension
+
+there are twp different controllers
+Shapes->/shapes this one works with id (primary keys) - also does create
+ShapesLayout->/shapeslayout this one works with layuoutNames and uuid
