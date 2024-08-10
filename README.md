@@ -83,82 +83,9 @@ npm start
 
 npm install @types/uuid
 
-Example json:
-// 11 at the end of the uuid
-{
-  "layoutName":"firstLayout",
-  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3811"
-  "options":{
-    "fill":"white",
-    "label":"Table",
-    "section":"S",
-    "occupied":true,
-    "top":10,
-    "left":10,
-  }
-}
-
-// 12 at the end of the uuid
-{
-  "layoutName":"firstLayout",
-  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3812"
-  "options":{
-    "fill":"white",
-    "label":"Table",
-    "section":"S",
-    "occupied":true,
-    "top":10,
-    "left":10,
-  }
-}
-
-// 21 at the end of the uuid
-{
-  "layoutName":"secondLayout",
-  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3821"
-  "options":{
-    "fill":"white",
-    "label":"Table",
-    "section":"S",
-    "occupied":true,
-    "top":10,
-    "left":10,
-  }
-}
-
-// 22 at the end of the uuid
-{
-  "layoutName":"secondLayout",
-  "uuid":"90cd8c36-c958-4ed5-b2e4-1d62438e3822"
-  "options":{
-    "fill":"white",
-    "label":"Table",
-    "section":"S",
-    "occupied":true,
-    "top":10,
-    "left":10,
-  }
-}
-
-
-To create
-POST localhost:3000/shapes
-Headers: Application-Type: application/json
-Body: json above
-
-To get all shapes associated to a layout
-GET localhost:3000/shapeslayout/:layouName
-Example: localhost:3000/shapeslayout/firstLayout
-
-To get a shape associated to a layout
-GET localhost:3000/shapeslayout/:layouName/:uuid
-Example: localhost:3000/shapeslayout/firstLayout/90cd8c36-c958-4ed5-b2e4-1d62438e3811
+npm install joi
 
 I used restman chrome extension
-
-there are twp different controllers
-Shapes->/shapes this one works with id (primary keys) - also does create
-ShapesLayout->/shapeslayout this one works with layuoutNames and uuid
 
 Used postgresql@15 on localhost
 
@@ -183,3 +110,40 @@ postgres=# \c restaurant_layout_db;
 You are now connected to database "restaurant_layout_db" as user "teos".
 restaurant_layout_db=# grant all on schema public to appuser;
 GRANT
+
+Code is updated with the latest shapes as in the word doc; There is a Shape for input and a different ShapeEntity for the database; Added validation done with Joi
+
+Example of what the validation will allow for an Ellipse:
+{
+    "uuid": "90cd8c36-c958-4ed5-b2e4-1d62438e3821",
+    "layoutName": "default",
+    "label": "Table",
+    "section": "S",
+    "customType": "Ellipse",
+    "shape": {
+        "top": 11,
+        "left": 11,
+        "rx": 11,
+        "ry": 11
+    }
+}
+
+Example of what the validation will allow for a Rect:
+{
+    "uuid": "90cd8c36-c958-4ed5-b2e4-1d62438e3822",
+    "layoutName": "default",
+    "label": "Table",
+    "section": "S",
+    "customType": "Rect",
+    "shape": {
+        "top": 11,
+        "left": 11,
+        "height": 11,
+        "width": 11
+    }
+}
+In order to create you must POST to this url: http://localhost:3000/shapes (Dont forget Content-Type:application/json)
+For update use a PUT http://localhost:3000/shapes/:layoutName/:uuid (The examples show layoutName = default)
+To delete use DELETE on http://localhost:3000/shapes/:layoutName/:uuid
+To get an individual shape use GET http://localhost:3000/shapes/:layoutName/:uuid
+To list all shapes use GET http://localhost:3000/shapes
